@@ -1,9 +1,9 @@
 package org.brotli.wrapper.jni;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import org.brotli.wrapper.enc.BrotliOutputStream;
 
 public class BrotliJNI {
@@ -20,8 +20,8 @@ public class BrotliJNI {
         File outfile = new File(outname);
         outfile.deleteOnExit();
 
-        try (FileOutputStream fos = new FileOutputStream(outfile)) {
-            fos.write(in.readAllBytes());
+        try {
+            Files.copy(in, outfile.toPath());
         } catch (IOException e) {
             throw new RuntimeException("Failed to write " + outname, e);
         }
