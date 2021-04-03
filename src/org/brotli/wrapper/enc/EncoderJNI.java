@@ -8,6 +8,7 @@ package org.brotli.wrapper.enc;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import org.brotli.wrapper.jni.BrotliJNI;
 
 /**
  * JNI wrapper for brotli encoder.
@@ -17,6 +18,8 @@ class EncoderJNI {
   private static native void nativePush(long[] context, int length);
   private static native ByteBuffer nativePull(long[] context);
   private static native void nativeDestroy(long[] context);
+
+  static { BrotliJNI.load(); }
 
   enum Operation {
     PROCESS,
